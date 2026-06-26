@@ -26,6 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -50,7 +56,8 @@ INSTALLED_APPS = [
     'apps.galeria.apps.GaleriaConfig',
     'apps.usuarios.apps.UsuariosConfig',
 
-    'storages'
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -166,7 +173,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STORAGES = {
     'default': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
     },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
