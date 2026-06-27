@@ -8,13 +8,11 @@ class Fotografia(models.Model):
 
     OPCOES_CATEGORIA = [
         ("SEGURANÇA", "Segurança"),
-        ("ATENDIMENTO", "Atendimento"),
+        ("LOGISTICA", "Logistica"),
         ("GA", "GA"),
         ("EQUIPE", "Equipe"),
-        ("LOGISTICA", "Logística"),
-        ("QUALIDADE", "Qualidade"),
-        ("PRODUTIVIDADE", "Produtividade"),
-        ("KAIZEN", "Kaizen"), 
+        ("AÇÕES PENDENTES", "Ações Pendentes"),
+        ("ANOMALIAS", "Anomalias Ocorridas"),
     ]
 
     nome = models.CharField(max_length=100, null=False, blank=False)

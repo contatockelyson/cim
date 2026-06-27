@@ -399,7 +399,6 @@ table {
     width: 147px;
     text-align: center;
     border: 2px solid transparent;
-    display: flex;
 }
 
 .tags__tag:hover {
