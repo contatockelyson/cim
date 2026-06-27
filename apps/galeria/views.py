@@ -22,7 +22,7 @@ def buscar(request):
         messages.error(request, 'Usuário não logado')
         return redirect('login')
 
-    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicada=True)
+    fotografias = Fotografia.objects.order_by("-data_fotografia").filter(publicada=True)
 
     if "buscar" in request.GET:
         nome_a_buscar = request.GET['buscar']
@@ -66,6 +66,6 @@ def deletar_imagem(request, foto_id):
     return redirect('index')
 
 def filtro(request, categoria):
-    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicada=True, categoria=categoria)
+    fotografias = Fotografia.objects.order_by("-data_fotografia").filter(publicada=True, categoria=categoria)
 
     return render(request, 'galeria/index.html', {"cards": fotografias})
