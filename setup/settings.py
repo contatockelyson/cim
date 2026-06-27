@@ -94,24 +94,16 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if os.getenv('RENDER') == 'true':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cim',
-            'USER': 'admin',
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': 'dpg-d8rb58j7uimc73evgji0-a.ohio-postgres.render.com',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cim',
+        'USER': 'admin',
+        'PASSWORD': 'gYqHlZ0IdQlVAj85py0vijEJIs3p7vWi',
+        'HOST': 'dpg-d8rb58j7uimc73evgji0-a.ohio-postgres.render.com',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 # Password validation
