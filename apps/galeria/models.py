@@ -7,10 +7,14 @@ from django.contrib.auth.models import User
 class Fotografia(models.Model):
 
     OPCOES_CATEGORIA = [
-        ("SEGURANÇA","Segurança"),
-        ("ATENDIMENTO","Atendimento"),
-        ("GA","GA"),
-        ("EQUIPE","Equipe"),
+        ("SEGURANÇA", "Segurança"),
+        ("ATENDIMENTO", "Atendimento"),
+        ("GA", "GA"),
+        ("EQUIPE", "Equipe"),
+        ("LOGISTICA", "Logística"),
+        ("QUALIDADE", "Qualidade"),
+        ("PRODUTIVIDADE", "Produtividade"),
+        ("KAIZEN", "Kaizen"), 
     ]
 
     nome = models.CharField(max_length=100, null=False, blank=False)
