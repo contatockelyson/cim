@@ -4,34 +4,24 @@ from apps.galeria.models import Fotografia
 from apps.galeria.forms import FotografiaForms
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
-
-def pode_editar_excluir(user):
-    return user.is_authenticated and (
-        user.is_superuser or user.username == 'ckelyson'
-    )
-
-
-def usuario_nao_logado(request):
-    messages.error(request, 'Usuário não logado')
-    return redirect('login')
-
-
-@login_required(login_url='login')
 def index(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+
     fotografias = Fotografia.objects.order_by("-data_fotografia").filter(publicada=True)
     return render(request, 'galeria/index.html', {"cards": fotografias})
 
-
-@login_required(login_url='login')
 def imagem(request, foto_id):
     fotografia = get_object_or_404(Fotografia, pk=foto_id)
     return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
 
-
-@login_required(login_url='login')
 def buscar(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+
     fotografias = Fotografia.objects.order_by("-data_fotografia").filter(publicada=True)
 
     if "buscar" in request.GET:
@@ -41,11 +31,12 @@ def buscar(request):
 
     return render(request, "galeria/index.html", {"cards": fotografias})
 
-
-@login_required(login_url='login')
 def nova_imagem(request):
-    form = FotografiaForms()
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
 
+    form = FotografiaForms
     if request.method == 'POST':
         form = FotografiaForms(request.POST, request.FILES)
         if form.is_valid():
@@ -55,14 +46,8 @@ def nova_imagem(request):
 
     return render(request, 'galeria/nova_imagem.html', {'form': form})
 
-
-@login_required(login_url='login')
 def editar_imagem(request, foto_id):
-    if not pode_editar_excluir(request.user):
-        messages.error(request, 'Você não tem permissão para editar.')
-        return redirect('index')
-
-    fotografia = get_object_or_404(Fotografia, id=foto_id)
+    fotografia = Fotografia.objects.get(id=foto_id)
     form = FotografiaForms(instance=fotografia)
 
     if request.method == 'POST':
@@ -74,24 +59,13 @@ def editar_imagem(request, foto_id):
 
     return render(request, 'galeria/editar_imagem.html', {'form': form, 'foto_id': foto_id})
 
-
-@login_required(login_url='login')
 def deletar_imagem(request, foto_id):
-    if not pode_editar_excluir(request.user):
-        messages.error(request, 'Você não tem permissão para excluir.')
-        return redirect('index')
-
-    fotografia = get_object_or_404(Fotografia, id=foto_id)
+    fotografia = Fotografia.objects.get(id=foto_id)
     fotografia.delete()
     messages.success(request, 'Deleção feita com sucesso!')
     return redirect('index')
 
-
-@login_required(login_url='login')
 def filtro(request, categoria):
-    fotografias = Fotografia.objects.order_by("-data_fotografia").filter(
-        publicada=True,
-        categoria=categoria
-    )
+    fotografias = Fotografia.objects.order_by("-data_fotografia").filter(publicada=True, categoria=categoria)
 
     return render(request, 'galeria/index.html', {"cards": fotografias})
