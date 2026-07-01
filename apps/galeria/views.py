@@ -7,6 +7,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+def pode_editar_excluir(user):
+    return user.is_authenticated and (
+        user.is_superuser or user.username == 'ckelyson'
+    )
+
+
 def usuario_nao_logado(request):
     messages.error(request, 'Usuário não logado')
     return redirect('login')
@@ -52,7 +58,7 @@ def nova_imagem(request):
 
 @login_required(login_url='login')
 def editar_imagem(request, foto_id):
-    if not request.user.is_superuser:
+    if not pode_editar_excluir(request.user):
         messages.error(request, 'Você não tem permissão para editar.')
         return redirect('index')
 
@@ -71,7 +77,7 @@ def editar_imagem(request, foto_id):
 
 @login_required(login_url='login')
 def deletar_imagem(request, foto_id):
-    if not request.user.is_superuser:
+    if not pode_editar_excluir(request.user):
         messages.error(request, 'Você não tem permissão para excluir.')
         return redirect('index')
 
