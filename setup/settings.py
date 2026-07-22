@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv
 
@@ -95,14 +96,11 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cim',
-        'USER': 'admin',
-        'PASSWORD': 'gYqHlZ0IdQlVAj85py0vijEJIs3p7vWi',
-        'HOST': 'dpg-d8rb58j7uimc73evgji0-a.ohio-postgres.render.com',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=0,
+        ssl_require=True,
+    )
 }
 
 
