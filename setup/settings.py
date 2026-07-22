@@ -21,7 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 
 # Chave secreta do Django
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "django-insecure-cim-temporaria-2026-x8p4m9k2q7v5n3r6t1w0"
+)
 
 # Modo de depuração
 # True = Desenvolvimento
