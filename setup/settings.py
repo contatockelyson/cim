@@ -6,6 +6,7 @@ django-admin startproject
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv
 
@@ -124,14 +125,11 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # ======================================================
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "cim",
-        "USER": "admin",
-        "PASSWORD": "SUA_SENHA_DO_BANCO",
-        "HOST": "dpg-d8rb58j7uimc73evgji0-a.ohio-postgres.render.com",
-        "PORT": "5432",
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
 
 # ======================================================
