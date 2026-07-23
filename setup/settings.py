@@ -237,10 +237,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # ======================================================
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
-SESSION_COOKIE_SECURE = True
-
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # ======================================================
 # CHAVE PRIMÁRIA PADRÃO
