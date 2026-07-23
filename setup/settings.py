@@ -33,14 +33,15 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # Domínios permitidos
 ALLOWED_HOSTS = [
-    "localhost",
+    "2.24.98.138",
     "127.0.0.1",
-    "cim-mvvy.onrender.com",
+    "localhost",
 ]
 
 # Domínios confiáveis para CSRF
 CSRF_TRUSTED_ORIGINS = [
-    "https://cim-mvvy.onrender.com",
+    "http://2.24.98.138",
+    "http://2.24.98.138:8000",
 ]
 
 # ======================================================
